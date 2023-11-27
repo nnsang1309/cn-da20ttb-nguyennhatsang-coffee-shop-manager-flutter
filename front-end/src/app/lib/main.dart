@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'table_order.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,12 +7,54 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home: Login(),
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    // Thực hiện xác thực tại đây, ví dụ: kiểm tra tên người dùng và mật khẩu
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    // Giả sử xác thực thành công nếu username và password không rỗng
+    if (username.isNotEmpty && password.isNotEmpty) {
+      // Chuyển sang màn hình thứ hai khi đăng nhập thành công
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TableOrder()),
+      );
+    } else {
+      // Hiển thị thông báo lỗi nếu đăng nhập không thành công
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Đăng nhập không thành công'),
+            content: Text('Vui lòng kiểm tra lại tên người dùng và mật khẩu.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Đóng'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,12 +67,14 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
+              controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Tên đăng nhập',
               ),
             ),
             SizedBox(height: 10.0),
             TextField(
+              controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Mật khẩu',
               ),
@@ -37,9 +82,7 @@ class LoginPage extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                // Xử lý đăng nhập ở đây
-              },
+              onPressed: _login,
               child: Text('Đăng nhập'),
             ),
             SizedBox(height: 10.0),
@@ -47,7 +90,7 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 // Điều hướng đến trang đăng ký
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
+                    MaterialPageRoute(builder: (context) => Register()));
               },
               child: Text('Chưa có tài khoản? Đăng ký ngay!'),
             ),
@@ -58,7 +101,7 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class RegisterPage extends StatelessWidget {
+class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
