@@ -1,3 +1,4 @@
+import 'package:app/screen/product_list.dart';
 import 'package:flutter/material.dart';
 
 class TableOrder extends StatelessWidget {
@@ -32,12 +33,20 @@ class TableOrder extends StatelessWidget {
                       child: Column(children: [
                     Text('Table ${index + 1}'),
                     InkWell(
+                        onTap: () {
+                          // Navigate to the Product screen when a table is tapped
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartProduct()),
+                          );
+                        },
                         child: Container(
-                      width: 20.0,
-                      height: 20.0,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xFF42A5F5)),
-                    ))
+                          width: 20.0,
+                          height: 20.0,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Color(0xFF42A5F5)),
+                        ))
                   ]));
                 }),
               ),
@@ -79,4 +88,9 @@ class TableOrder extends StatelessWidget {
   void paymentButton() {
     // Add the functionality for the payment button here
   }
+}
+
+// ignore: camel_case_types
+class cart_product {
+  const cart_product();
 }

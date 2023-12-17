@@ -1,9 +1,11 @@
+import 'package:app/screen/table_list.dart';
 import 'package:flutter/material.dart';
-import 'table_order.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,6 +15,8 @@ class MyApp extends StatelessWidget {
 }
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -92,7 +96,7 @@ class _LoginState extends State<Login> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Register()));
               },
-              child: Text('Chưa có tài khoản? Đăng ký ngay!'),
+              child: Text('Đăng ký'),
             ),
           ],
         ),
