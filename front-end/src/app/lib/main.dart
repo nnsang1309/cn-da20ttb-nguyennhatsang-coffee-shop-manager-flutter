@@ -1,152 +1,48 @@
-import 'package:app/screen/table_list.dart';
+// import 'package:app/screens/login.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'package:app/data/mock_data_provider.dart';
+
+// void main() => runApp(MyApp());
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Login(),
+//     );
+//   }
+// }
+
+void main() async {
+  // Khởi tạo Mock Data Provider
+  var provider = MockDataProvider();
+
+  // Lấy danh sách products
+  var products = await provider.fetchProducts();
+
+  // Kiểm tra kết quả
+  print(products.length);
+
+  // // Chạy app Flutter
+  // runApp(MyApp());
+
+  // Gọi để khởi tạo Flutter binding
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Các dòng khởi tạo services, lấy instances,...
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Login(),
-    );
-  }
-}
-
-class Login extends StatefulWidget {
-  const Login({super.key});
-
-  @override
-  _LoginState createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  void _login() {
-    // Thực hiện xác thực tại đây, ví dụ: kiểm tra tên người dùng và mật khẩu
-    String username = _usernameController.text;
-    String password = _passwordController.text;
-
-    // Giả sử xác thực thành công nếu username và password không rỗng
-    if (username.isNotEmpty && password.isNotEmpty) {
-      // Chuyển sang màn hình thứ hai khi đăng nhập thành công
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => TableOrder()),
-      );
-    } else {
-      // Hiển thị thông báo lỗi nếu đăng nhập không thành công
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Đăng nhập không thành công'),
-            content: Text('Vui lòng kiểm tra lại tên người dùng và mật khẩu.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Đóng'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Đăng nhập'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: 'Tên đăng nhập',
-              ),
-            ),
-            SizedBox(height: 10.0),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Mật khẩu',
-              ),
-              obscureText: true,
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text('Đăng nhập'),
-            ),
-            SizedBox(height: 10.0),
-            TextButton(
-              onPressed: () {
-                // Điều hướng đến trang đăng ký
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Register()));
-              },
-              child: Text('Đăng ký'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Register extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Đăng ký'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Tên đăng nhập',
-              ),
-            ),
-            SizedBox(height: 10.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Mật khẩu',
-              ),
-              obscureText: true,
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                // Xử lý đăng ký ở đây
-              },
-              child: Text('Đăng ký'),
-            ),
-            SizedBox(height: 10.0),
-            TextButton(
-              onPressed: () {
-                // Điều hướng quay lại trang đăng nhập
-                Navigator.pop(context);
-              },
-              child: Text('Quay lại đăng nhập'),
-            ),
-          ],
-        ),
-      ),
-    );
+        home: Scaffold(
+      body: Center(child: Text('My App')),
+    ));
   }
 }

@@ -1,7 +1,9 @@
-import 'package:app/screen/product_list.dart';
+import 'package:app/screens/product_list.dart';
 import 'package:flutter/material.dart';
 
-class TableOrder extends StatelessWidget {
+class TableList extends StatelessWidget {
+  const TableList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +19,7 @@ class TableOrder extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
-                    children: [Text('Oder Number: 10')],
+                    children: [Text('Order Number: 10')],
                   ),
                   Column(
                     children: [Text('Empty Table: 00')],
@@ -30,15 +32,15 @@ class TableOrder extends StatelessWidget {
                 crossAxisCount: 3,
                 children: List.generate(12, (index) {
                   return Center(
-                      child: Column(children: [
-                    Text('Table ${index + 1}'),
-                    InkWell(
+                    child: Column(children: [
+                      Text('Table ${index + 1}'),
+                      InkWell(
                         onTap: () {
-                          // Navigate to the Product screen when a table is tapped
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CartProduct()),
+                              builder: (context) => const ProductList(),
+                            ),
                           );
                         },
                         child: Container(
@@ -46,8 +48,10 @@ class TableOrder extends StatelessWidget {
                           height: 20.0,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Color(0xFF42A5F5)),
-                        ))
-                  ]));
+                        ),
+                      ),
+                    ]),
+                  );
                 }),
               ),
             ),
@@ -88,9 +92,4 @@ class TableOrder extends StatelessWidget {
   void paymentButton() {
     // Add the functionality for the payment button here
   }
-}
-
-// ignore: camel_case_types
-class cart_product {
-  const cart_product();
 }
