@@ -1,10 +1,9 @@
 import 'package:app/components/categories.dart';
-import 'package:app/components/home_header.dart';
 import 'package:app/components/product_card.dart';
-import 'package:app/components/special_card.dart';
+import 'package:app/screens/order_details.dart';
+import 'package:app/screens/table_list.dart';
 import 'package:app/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({super.key});
@@ -17,87 +16,101 @@ class ProductList extends StatelessWidget {
         selectedItemColor: AppTheme.primaryColor,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        onTap: (int index) {
+          switch (index) {
+            case 0:
+              // Nhấn Home
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TableList()));
+              break;
+
+            case 1:
+              // Nhấn Order
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TableList()));
+              break;
+
+            case 2:
+              // Nhấn Payment
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OrderDetails()));
+              break;
+
+            case 3:
+              // Nhấn Profile
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TableList()));
+              break;
+          }
+        },
         items: [
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/home-svgrepo-com.svg',
-                // ignore: deprecated_member_use
+            icon: const Icon(
+              Icons.table_restaurant_outlined,
+              color: AppTheme.primaryColor,
+            ),
+            label: 'Table',
+          ),
+          BottomNavigationBarItem(
+              icon: const Icon(
+                Icons.checklist_rounded,
                 color: AppTheme.primaryColor,
-                height: 28,
               ),
-              label: 'Home'),
+              label: 'Order'),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/favourite-svgrepo-com.svg',
-                height: 28,
+              icon: const Icon(
+                Icons.payment_rounded,
+                color: AppTheme.primaryColor,
               ),
-              label: 'Favourite'),
+              label: 'Payment'),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/bag-outline-svgrepo-com.svg',
-                height: 28,
-              ),
-              label: 'Cart'),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/profile-svgrepo-com.svg',
-                height: 28,
+              icon: const Icon(
+                Icons.person_2_outlined,
+                color: AppTheme.primaryColor,
               ),
               label: 'Profile'),
         ],
       ),
-      body: ListView(
+      body: Column(
         children: [
-          const Header(),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-            child: Text(
-              'Good Morning, You ',
-              style: TextStyle(
-                  color: Colors.black,
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              child: Text(
+                'Coffee Shop',
+                style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 24),
-            ),
-          ),
+                  fontSize: 24,
+                ),
+              )),
           const SearchBar(),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-            child: Text(
-              'Categories',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24),
-            ),
+          Row(
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                  child: Text(
+                    'Categories',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  )),
+            ],
           ),
           const Categories(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: GridView.builder(
-                physics: ScrollPhysics(), // Cho phép GridView cuộn
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: 0.7,
-                ),
-                itemCount: 6, // Số lượng sản phẩm bạn muốn hiển thị
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10),
+                itemCount: 6,
                 itemBuilder: (context, index) => ProductCard(),
               ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-            child: Text(
-              'Special Offer',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 24),
-            ),
-          ),
-          const SpecialOfferCard()
+          )
         ],
       ),
     );

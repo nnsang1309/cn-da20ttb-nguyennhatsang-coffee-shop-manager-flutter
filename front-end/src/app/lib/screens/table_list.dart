@@ -1,4 +1,6 @@
-import 'package:app/screens/product_list.dart';
+import 'package:app/screens/order_details.dart';
+import 'package:app/screens/product_list.dart'; // Import màn hình bạn muốn chuyển đổi
+import 'package:app/theme.dart';
 import 'package:flutter/material.dart';
 
 class TableList extends StatelessWidget {
@@ -9,20 +11,92 @@ class TableList extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Table Order Management'),
+          title: const Text('Table Order'),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: AppTheme.primaryColor,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          onTap: (int index) {
+            switch (index) {
+              case 0:
+                // Nhấn Home
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TableList()));
+                break;
+
+              case 1:
+                // Nhấn Order
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TableList()));
+                break;
+
+              case 2:
+                // Nhấn Payment
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OrderDetails()));
+                break;
+
+              case 3:
+                // Nhấn Profile
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TableList()));
+                break;
+            }
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(
+                Icons.table_restaurant_outlined,
+                color: AppTheme.primaryColor,
+              ),
+              label: 'Table',
+            ),
+            BottomNavigationBarItem(
+                icon: const Icon(
+                  Icons.checklist_rounded,
+                  color: AppTheme.primaryColor,
+                ),
+                label: 'Order'),
+            BottomNavigationBarItem(
+                icon: const Icon(
+                  Icons.payment_rounded,
+                  color: AppTheme.primaryColor,
+                ),
+                label: 'Payment'),
+            BottomNavigationBarItem(
+                icon: const Icon(
+                  Icons.person_2_outlined,
+                  color: AppTheme.primaryColor,
+                ),
+                label: 'Profile'),
+          ],
         ),
         body: Column(
           children: [
             const Padding(
               padding: EdgeInsets.all(18.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
-                    children: [Text('Order Number: 10')],
+                    children: [
+                      Text(
+                        'Order Number: 10',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
                   ),
                   Column(
-                    children: [Text('Empty Table: 00')],
+                    children: [
+                      Text(
+                        'Empty Table: 00',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
                   )
                 ],
               ),
@@ -30,66 +104,60 @@ class TableList extends StatelessWidget {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 3,
+                padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
                 children: List.generate(12, (index) {
                   return Center(
-                    child: Column(children: [
-                      Text('Table ${index + 1}'),
-                      InkWell(
+                    child: GestureDetector(
                         onTap: () {
+                          // Chuyển đổi sang màn hình ProductListScreen khi nhấn vào ô GridView
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ProductList(),
+                              builder: (context) => ProductList(),
                             ),
                           );
                         },
                         child: Container(
-                          width: 20.0,
-                          height: 20.0,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle, color: Color(0xFF42A5F5)),
-                        ),
-                      ),
-                    ]),
+                          width: 90.0,
+                          height: 90.0,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 3,
+                                blurRadius: 8,
+                                offset: const Offset(3, 5),
+                              ),
+                            ],
+                            color: Color(0xFF42A5F5),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.table_bar_outlined,
+                                color: AppTheme.whiteColor,
+                                size: 28,
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Table ${index + 1}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        )),
                   );
                 }),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: orderButton,
-                    child: const Text('Order'),
-                  ),
-                  ElevatedButton(
-                    onPressed: tableButton,
-                    child: const Text('Table'),
-                  ),
-                  ElevatedButton(
-                    onPressed: paymentButton,
-                    child: const Text('Payment'),
-                  ),
-                ],
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  void orderButton() {
-    // Add the functionality for the order button here
-  }
-
-  void tableButton() {
-    // Add the functionality for the table button here
-  }
-
-  void paymentButton() {
-    // Add the functionality for the payment button here
   }
 }

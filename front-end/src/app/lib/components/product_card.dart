@@ -19,7 +19,7 @@ class ProductCard extends StatelessWidget {
             ),
           ],
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
         ),
         width: MediaQuery.of(context).size.width / 2 - 24,
         padding: EdgeInsets.all(4),
@@ -30,7 +30,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.all(4),
-                  height: MediaQuery.of(context).size.width / 2 - 48,
+                  height: MediaQuery.of(context).size.width / 2 - 64,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: const DecorationImage(
@@ -43,20 +43,6 @@ class ProductCard extends StatelessWidget {
                   child: Text(
                     'Cappaccino',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    'without sugar',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    '\$5.12',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                   ),
                 ),
               ],
@@ -79,9 +65,9 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: const [
-                      Icon(Icons.star, color: Colors.white),
+                      Icon(Icons.monetization_on_outlined, color: Colors.white),
                       Text(
-                        '4,5',
+                        '20.000',
                         style: TextStyle(color: Colors.white),
                       )
                     ],
